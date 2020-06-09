@@ -1,0 +1,23 @@
+{
+  "name": "pbc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "cron": "^1.8.2",
+    "node-cron": "^2.0.3",
+    "nodemailer": "^6.4.8",
+    "request": "^2.88.2",
+    "uniqid": "^5.2.0"
+  },
+  "bin": {
+    "dirManager": "Lecture_1_JS_01_6_2020\\activity\\organizer.js"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
