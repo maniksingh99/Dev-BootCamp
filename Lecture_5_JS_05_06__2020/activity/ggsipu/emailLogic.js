@@ -8,15 +8,15 @@ const nodemailer = require("nodemailer");
     host: "smtp.gmail.com",
     secure: false, // true for 465, false for other ports
     auth: {
-      user: "maniksingh035@gmail.com", // generated ethereal user
-      pass: "lwrkxywucpqlofev", // generated ethereal password
+      user: "xxxx", // generated ethereal user
+      pass: "xxxx", // generated ethereal password
     },
   });
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: '"Manik Singh 👻"maniksingh035@gmail.com', // sender address
-    to: "maniksingh035@gmail.com, maniksingh035@gmail.com", // list of receivers
+    from: '"xxxx 👻"xxxx', // sender address
+    to: "xxxxx, xxxxx", // list of receivers
     subject: "Notice", // Subject line
     html: html, // html body
   });
