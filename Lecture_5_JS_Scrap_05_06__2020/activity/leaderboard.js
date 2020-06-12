@@ -46,10 +46,10 @@ function parseSeriesPage(html){
             //1.attribute selector
             // let anchor=$(allCards[i]).find(".match-cta-container a[data-hover='Scorecard']");
             // let matchLink=$(anchor).attr("href");
-            //2. way of doing the same we did above
-            let anchor=$(allCards[i]).find(".match-cta-container a").text();
-            //console.log("`````````````````````````````````````````````````````````````````````````````````",anchor);
+            //2. way of doing the same thing that we did above
+            let anchor=$(allCards[i]).find(".match-cta-container a");
             let matchLink=$(anchor[0]).attr("href");
+            //console.log("`````````````````````````````````````````````````````````````````````````````````",anchor);
             console.log(matchLink);
             let fullLink=`https://www.espncricinfo.com${matchLink}`;
             //console.log(fullLink);
