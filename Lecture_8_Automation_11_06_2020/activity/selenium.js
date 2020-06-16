@@ -79,29 +79,50 @@ tabWillBeOpenPromise
 .then(function(){
     // let questionPromise=tab.findElement(swd.By.css(".ui-btn.ui-btn-normal.primary-cta.ui-btn-primary"));
     // return questionPromise;
-    let urlOfQP=tab.getCurrentUrl();
-    return urlOfQP;
+    // let urlOfQP=tab.getCurrentUrl();
+    // return urlOfQP;
+    let allQtag=tab.findElements(swd.By.css("a.js-track-click.challenge-list-item"));
+    return allQtag;
+})
+.then(function(allQues){
+    let allQLinkP=allQues.map(function(anchor){
+        return anchor.getAttribute("href");
+    })
+    let allLinkPromise=Promise.all(allQLinkP);
+    return allLinkPromise;
+})
+.then(function(allQLink){
+    //serial execution of all the promises
+    let f1Promise=questionSolver(allQLink[0]);
+    for(let i=1;i<allQLink.length;i++){
+        f1Promise=f1Promise.then(function(){
+            return questionSolver(allQLink[i]);
+        })
+    }
+    let lstQuesWillBeSolvedP=f1Promise;
+    return lstQuesWillBeSolvedP;
 })
 // .then(function(url){
 //     console.log("The value of current url"+url);
 // })
-.then(function(urlOfQP){
-    let questionWillBeSolvedPromise=questionSolver();
-    return questionWillBeSolvedPromise;
-})
+// .then(function(urlOfQP){
+//     let questionWillBeSolvedPromise=questionSolver();
+//     return questionWillBeSolvedPromise;
+// })
 .then(function(){
-    console.log("First Question is solved");
+    console.log("All questions are solved");
 })
 .catch(function(err){
     console.log(err);
 })
 
-function questionSolver(){
+function questionSolver(url){
     return new Promise(function(resolve,reject){
         //logic to solve a question
         console.log("Inside question solver");
         let solutionQuestion;
-        let allWarmUpQuestionPromise=tab.findElements(swd.By.css(".challenge-submit-btn"));
+        // tab.findElements(swd.By.css(".challenge-submit-btn"));
+        let allWarmUpQuestionPromise=tab.get(url)
         allWarmUpQuestionPromise.then(function(currentButtonArr){
            // console.log(currentButtonArr);
            let currentQuestionButtonPromise=currentButtonArr[0].click();
