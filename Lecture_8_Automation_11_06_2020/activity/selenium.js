@@ -55,18 +55,22 @@ tabWillBeOpenPromise
     console.log("The login button is clicked");
 })
 .then(function(){
-    let IpKitPromise=tab.findElement(swd.By.css("h3[title='Interview Preparation Kit']"));
+    //  #base-card-22-link
+    let IpKitPromise=tab.findElements(swd.By.css("h3[title='Interview Preparation Kit']"));
     return IpKitPromise;
 })
 .then(function(IpButton){
-    let IpClick=IpButton.click();
+    let IpButton1=IpButton[0];
+    let IpClick=IpButton1.click();
     return IpClick;
 })
 .then(function(){
     console.log("Ip button clicked successfully");
 })
 .then(function(){
-    let warmUpPromise=tab.findElement(swd.By.css("a[data-analytics='PlaylistCardItem']"));
+    // a[data-analytics='PlaylistCardItem']
+    //goto warmup challenges
+    let warmUpPromise=tab.findElement(swd.By.css("a[data-attr1='warmup']"));
     return warmUpPromise;
 })
 .then(function(warmUpButton){
@@ -79,29 +83,50 @@ tabWillBeOpenPromise
 .then(function(){
     // let questionPromise=tab.findElement(swd.By.css(".ui-btn.ui-btn-normal.primary-cta.ui-btn-primary"));
     // return questionPromise;
-    let urlOfQP=tab.getCurrentUrl();
-    return urlOfQP;
+    // let urlOfQP=tab.getCurrentUrl();
+    // return urlOfQP;
+    let allQtag=tab.findElements(swd.By.css("a.js-track-click.challenge-list-item"));
+    return allQtag;
+})
+.then(function(allQues){
+    let allQuesP=allQues.map(function(anchor){
+        return anchor.getAttribute("href");
+    })
+    let allLinkPromise=Promise.all(allQuesP);
+    return allLinkPromise;
+})
+.then(function(allQuesLink){
+    let f1Promise=questionSolver(allQuesLink[0]);
+    for(let i=1;i<allQuesLink.length;i++){
+        f1Promise=f1Promise.then(function(){
+            return questionSolver(allQuesLink[i]);
+        })
+    }
+    let lstQuestWillBeSolvedP=f1Promise;
+    return lstQuestWillBeSolvedP;
 })
 // .then(function(url){
 //     console.log("The value of current url"+url);
 // })
-.then(function(urlOfQP){
-    let questionWillBeSolvedPromise=questionSolver();
-    return questionWillBeSolvedPromise;
-})
+// .then(function(urlOfQP){
+//     let questionWillBeSolvedPromise=questionSolver();
+//     return questionWillBeSolvedPromise;
+// })
 .then(function(){
-    console.log("First Question is solved");
+    //console.log("First Question is solved");
+    console.log("All Question are solved");
 })
 .catch(function(err){
     console.log(err);
 })
 
-function questionSolver(){
+function questionSolver(url){
     return new Promise(function(resolve,reject){
         //logic to solve a question
         console.log("Inside question solver");
         let solutionQuestion;
-        let allWarmUpQuestionPromise=tab.findElements(swd.By.css(".challenge-submit-btn"));
+        //let allWarmUpQuestionPromise=tab.findElements(swd.By.css(".challenge-submit-btn"));
+        let allWarmUpQuestionPromise=tab.get(url);
         allWarmUpQuestionPromise.then(function(currentButtonArr){
            // console.log(currentButtonArr);
            let currentQuestionButtonPromise=currentButtonArr[0].click();

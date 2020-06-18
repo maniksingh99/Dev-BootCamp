@@ -20,6 +20,7 @@ function fsprf(path){
 //2.doesn't require cb
 
 let readFilePromise=fsprf("f1.txt");
+console.log(readFilePromise);
 //user
 readFilePromise.then(function(data){
     console.log("inside then ");
