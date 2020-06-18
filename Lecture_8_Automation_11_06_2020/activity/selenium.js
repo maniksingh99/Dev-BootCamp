@@ -89,21 +89,22 @@ tabWillBeOpenPromise
     return allQtag;
 })
 .then(function(allQues){
-    let allQuesP=allQues.map(function(anchor){
+    let allQLinkP=allQues.map(function(anchor){
         return anchor.getAttribute("href");
     })
-    let allLinkPromise=Promise.all(allQuesP);
+    let allLinkPromise=Promise.all(allQLinkP);
     return allLinkPromise;
 })
-.then(function(allQuesLink){
-    let f1Promise=questionSolver(allQuesLink[0]);
-    for(let i=1;i<allQuesLink.length;i++){
+.then(function(allQLink){
+    //serial execution of all the promises
+    let f1Promise=questionSolver(allQLink[0]);
+    for(let i=1;i<allQLink.length;i++){
         f1Promise=f1Promise.then(function(){
-            return questionSolver(allQuesLink[i]);
+            return questionSolver(allQLink[i]);
         })
     }
-    let lstQuestWillBeSolvedP=f1Promise;
-    return lstQuestWillBeSolvedP;
+    let lstQuesWillBeSolvedP=f1Promise;
+    return lstQuesWillBeSolvedP;
 })
 // .then(function(url){
 //     console.log("The value of current url"+url);
@@ -113,8 +114,7 @@ tabWillBeOpenPromise
 //     return questionWillBeSolvedPromise;
 // })
 .then(function(){
-    //console.log("First Question is solved");
-    console.log("All Question are solved");
+    console.log("All questions are solved");
 })
 .catch(function(err){
     console.log(err);
@@ -125,8 +125,8 @@ function questionSolver(url){
         //logic to solve a question
         console.log("Inside question solver");
         let solutionQuestion;
-        //let allWarmUpQuestionPromise=tab.findElements(swd.By.css(".challenge-submit-btn"));
-        let allWarmUpQuestionPromise=tab.get(url);
+        // tab.findElements(swd.By.css(".challenge-submit-btn"));
+        let allWarmUpQuestionPromise=tab.get(url)
         allWarmUpQuestionPromise.then(function(currentButtonArr){
            // console.log(currentButtonArr);
            let currentQuestionButtonPromise=currentButtonArr[0].click();
