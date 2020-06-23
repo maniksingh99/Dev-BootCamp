@@ -9,6 +9,7 @@
     "cron": "^1.8.2",
     "node-cron": "^2.0.3",
     "nodemailer": "^6.4.8",
+    "puppeteer": "^4.0.0",
     "request": "^2.88.2",
     "selenium-webdriver": "^4.0.0-alpha.7",
     "uniqid": "^5.2.0"

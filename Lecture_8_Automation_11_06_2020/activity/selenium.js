@@ -56,7 +56,8 @@ tabWillBeOpenPromise
 })
 .then(function(){
     //  #base-card-22-link
-    let IpKitPromise=tab.findElements(swd.By.css("h3[title='Interview Preparation Kit']"));
+    // h3[title='Interview Preparation Kit']
+    let IpKitPromise=tab.findElements(swd.By.css("#base-card-1-link"));
     return IpKitPromise;
 })
 .then(function(IpButton){
@@ -127,12 +128,12 @@ function questionSolver(url){
         let solutionQuestion;
         // tab.findElements(swd.By.css(".challenge-submit-btn"));
         let allWarmUpQuestionPromise=tab.get(url)
-        allWarmUpQuestionPromise.then(function(currentButtonArr){
-           // console.log(currentButtonArr);
-           let currentQuestionButtonPromise=currentButtonArr[0].click();
-           return currentQuestionButtonPromise;
-        })
-        .then(function(){
+        // allWarmUpQuestionPromise.then(function(currentButtonArr){
+        //    // console.log(currentButtonArr);
+        //    let currentQuestionButtonPromise=currentButtonArr[0].click();
+        //    return currentQuestionButtonPromise;
+        // })
+        allWarmUpQuestionPromise.then(function(){
             let editorWillBeSelectedPromise=tab.findElement(swd.By.css("a[data-attr2='Editorial']"));
             return editorWillBeSelectedPromise;
         })
