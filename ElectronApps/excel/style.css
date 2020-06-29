@@ -1,0 +1,37 @@
+/* reset syntax */
+html,body{
+    margin:0px;
+    padding:0px;
+}
+/* universal selector */
+*{
+    box-sizing: border-box;
+}
+.menu{
+    height: 20px;
+}
+.menu-option{
+    height: 68px;
+    border: 2px gray solid;
+}
+.formulaBar{
+    height: 20px;
+    border:2px solid yellow;
+}
+.cell-container{
+    height: calc(100vh - 128px);
+    overflow:auto;
+    /* background-color: green; */
+}
+.sheets{
+    height:20px;
+    border:2px pink solid;
+}
+.row{
+    display:flex;
+}
+.col{
+    border:1px teal solid;
+    min-width: 75px;
+    height:23px;
+}
