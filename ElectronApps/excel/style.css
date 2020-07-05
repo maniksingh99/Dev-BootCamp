@@ -18,8 +18,14 @@ html,body{
 }
 
 .menu-option{
-    height: 68px;
-    border: 2px gray solid;
+    /* height: 68px;
+    border: 2px gray solid; */
+    height: 60px;
+    border: 1px solid green;
+    display: flex;
+    justify-content: space-evenly;
+    width: 127px;
+    align-items: center;
 }
 
 .formulaBar{
