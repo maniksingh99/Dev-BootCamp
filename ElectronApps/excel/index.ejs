@@ -10,8 +10,37 @@
         <!-- .menu+.menu-option+(.formulaBar>(input[type="text"])*2).cell-container+.sheets -->
         <div class="menu">Menu</div>
         <div class="menu-option">Menu Options</div>
-        <div class="formulaBar">Formula bar<input type="text"><input type="text"></div>
+        <div class="formulaBar">Formula bar
+            <input type="text" id="text-input" class="text-container ib" readonly="true">
+            <input type="text" id="formula-input" class="formula-container">
+        </div>
         <div class="cell-container">
+            <div id="top-left-cell"></div>
+            <div id="top-row">
+                <%for(let i=0;i<cols;i++){%>
+                    <div class="cell">
+                        <%=String.fromCharCode(i+65)%>
+                    </div>
+                    <%}%>
+            </div>
+            <div id="left-col">
+                <%for(let j=1;j<=rows;j++){%>
+                    <div class="cell">
+                        <%=j%>
+                    </div>
+                    <%}%>
+            </div>
+            <div id="grid">
+                <%for(let i=0;i<rows;i++){%>
+                    <div class="row">
+                        <%for(let j=0;j<cols;j++){%>
+                            <div class="cell" contenteditable="true" row-id=<%=i%> col-id=<%=j%>></div>
+                            <%}%>
+                    </div>
+                    <%}%>
+            </div>
+        </div>
+        <!-- <div class="cell-container">
             <%for(let i=1;i<=rows;i++){%>
                 <div class="row">
                     <%for(let j=0;j<cols;j++){%>
@@ -21,7 +50,8 @@
                     <%}%>
                 </div>
             <%}%>    
-        </div>
+        </div> -->
         <div class="sheets">Sheets</div>
+        <script src="script.js"></script>
 </body>
 </html>

@@ -13,5 +13,8 @@
   "devDependencies": {
     "ejs-electron": "^2.0.3",
     "electron": "^9.0.5"
+  },
+  "dependencies": {
+    "jquery": "^3.5.1"
   }
 }
