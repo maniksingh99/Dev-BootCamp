@@ -36,6 +36,8 @@ let {email,password}=require("../../credientals.json");
 })();
 
 async function handleSinglePage(page,browser){
+
+    //to find the number of pages
     await page.waitForSelector("a[data-attr1='Last']");
     let lastPageUrl=await page.$("a[data-attr1='Last']");
     let urlOfLastPageQues=await page.evaluate(function(ele){
@@ -44,6 +46,8 @@ async function handleSinglePage(page,browser){
     console.log(urlOfLastPageQues);
     let num=urlOfLastPageQues.charAt(urlOfLastPageQues.length-1);
     console.log(num);
+
+
     let hrefPArr=[];
     for(let i=1;i<=num;i++){
         await page.waitForSelector("a.backbone.block-center");
@@ -55,11 +59,20 @@ async function handleSinglePage(page,browser){
             hrefPArr.push(hrefP);
         }
         console.log(hrefPArr.length);
-        await page.waitForSelector("a[data-attr1='Right']");
-        await Promise.all([
-            page.waitForNavigation({waitUntil:"networkidle0"}),
-            page.click("a[data-attr1='Right']")
-        ])
+        await page.waitForSelector(".pagination ul li");
+        let allLi=await page.$$(".pagination ul li");
+        let liAttr=await page.evaluate(function(ele){
+            return ele.getAttribute("class")
+        },allLi[4])
+        console.log("Value of li attribute is",liAttr);
+        if(liAttr!="disabled"){
+            await page.waitForSelector("a[data-attr1='Right']");
+            await Promise.all([
+                page.waitForNavigation({waitUntil:"networkidle0"}),
+                page.click("a[data-attr1='Right']")
+            ])
+            console.log("Button clicked");
+        }
     }
     let allHref=await Promise.all(hrefPArr);
     //console.log(hrefPArr);
