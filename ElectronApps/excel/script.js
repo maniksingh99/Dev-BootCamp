@@ -9,6 +9,8 @@ $(document).ready(function(){
         let {colId,rowId}=getrc(this);
         let value=String.fromCharCode(65+colId)+(rowId+1);
         $('#text-input').val(value);
+        let formulaElem = getCell(this);
+        $("#formula-input").val(formulaElem.formula);
     })
 
     $("#New").on("click",function(){
@@ -148,6 +150,7 @@ $(document).ready(function(){
             let fuso=db[uso.rowId][uso.colId];
             let fArr=fuso.downstream.filter(function(dCell){
                 return dCell.colId!=colId || dCell.rowId==rowId
+                // return !(dCell.colId == colID && dCell.rowId == rowId)
             })
             fuso.downstream=fArr;
         }
