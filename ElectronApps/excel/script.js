@@ -5,12 +5,202 @@ const dialog=require("electron").remote.dialog;
 $(document).ready(function(){
     let db;
     let lsc;
+
+    $(".cell-container").on("scroll",function(){
+        let scrollY=$(this).scrollTop();
+        let scrollX=$(this).scrollLeft();
+        //console.log(scrollY);
+        $("#top-row,#top-left-cell").css("top",scrollY+"px");
+        $("#top-left-cell,#left-col").css("left",scrollX+"px");
+    })
+
+    $("#grid .cell").on("keyup",function(){
+        let {rowId} = getrc(this);
+        //console.log(rowId);
+        let ht = $(this).height();
+        //console.log("Value of height ",ht);
+        $($("#left-col .cell")[rowId]).height(ht);
+        //$("#left-col .cell").eq(rowId).height(ht);
+    })
+
+    //this function is used to select the option like file and home
+    $(".menu").on("click",function(){
+        let Id = $(this).attr("id");
+        $(".menu-options").removeClass("selected");
+        $(`#${Id}-menu-options`).addClass("selected");
+    })
+
+    let lcell;
     $("#grid .cell").on("click",function(){
         let {colId,rowId}=getrc(this);
         let value=String.fromCharCode(65+colId)+(rowId+1);
         $('#text-input').val(value);
-        let formulaElem = getCell(this);
-        $("#formula-input").val(formulaElem.formula);
+        let cellObject = getCell(this);
+        $("#formula-input").val(cellObject.formula);
+        console.log(lcell);
+        if( lcell && this!=lcell){
+            console.log(lcell);
+            $(lcell).removeClass("selected");
+        }
+        //agar idhar else hota tho fir ye tho if chala ga ya tho else but we want to simultaeously want to remove the selected class from one and add selected class to other
+        // else{
+        //     console.log("the else statement is excuted");
+           
+        // }
+        $(this).addClass("selected");
+        
+        if(cellObject.bold){
+            $("#bold").addClass("isOn");
+        }else{
+            $("#bold").removeClass("isOn");
+        }
+        if(cellObject.underline){
+            $("#underline").addClass("isOn");
+        }else{
+            $("#underline").removeClass("isOn");
+        }
+        if(cellObject.italic){
+            $("#italic").addClass("isOn");
+        }
+        else{
+            $("#italic").removeClass("isOn");
+        }
+        if(cellObject.halign=='left'){
+            $("input[halign='left']").addClass("isOn");
+            $("input[halign='center']").removeClass("isOn");
+            $("input[halign='right']").removeClass("isOn");
+        }
+        else if(cellObject.halign=='center'){
+            $("input[halign='center']").addClass("isOn");
+            $("input[halign='left']").removeClass("isOn");
+            $("input[halign='right']").removeClass("isOn");
+        }
+        else if(cellObject.halign=='right'){
+            $("input[halign='right']").addClass("isOn");
+            $("input[halign='left']").removeClass("isOn");
+            $("input[halign='center']").removeClass("isOn");
+        }
+        lcell=this;
+    })
+
+    $("#bold").on("click",function(){
+        $(this).toggleClass("isOn");
+        let isBold = $(this).hasClass("isOn");
+        $("#grid .cell.selected").css("font-weight",isBold?"bolder":"normal");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getCell(cellElem);
+        cellObject.bold=isBold;
+    })
+
+    $("#underline").on("click",function(){
+        $(this).toggleClass("isOn");
+        let isUnderLine = $(this).hasClass("isOn");
+        $("#grid .cell.selected").css("text-decoration",isUnderLine?"underline":"none");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getCell(cellElem);
+        cellObject.underline = isUnderLine;
+    })
+
+    $("#italic").on("click",function(){
+        $(this).toggleClass("isOn");
+        let isItalic = $(this).hasClass("isOn");
+        $("#grid .cell.selected").css("font-style",isItalic?"italic":"normal");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject=getCell(cellElem);
+        cellObject.italic=isItalic;
+    })
+
+    $("#font-family").on("change",function(){
+        let fontFamily=$(this).val();
+        $("#grid .cell.selected").css("font-family",fontFamily);
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getCell(cellElem);
+        cellObject.fontFamily=fontFamily;
+
+    })
+
+    $("#font-size").on("change",function(){
+        let fontSize=$(this).val();
+        $("#grid .cell.selected").css("font-size",fontSize+"px");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getCell(cellElem);
+        cellObject.fontSize=fontSize;
+    })
+
+    $("#bg-color").on("change",function(){
+        let bgColor=$(this).val();
+        let cellElem=$("#grid .cell.selected");
+        cellElem.css("background-color",bgColor);
+        let cellObject = getCell(cellElem);
+        cellObject.bgColor=bgColor;
+    })
+
+    $("#text-color").on("change",function(){
+        let textColor=$(this).val();
+        let cellElem=$("#grid .cell.selected");
+        cellElem.css("color",textColor);
+        let cellObject = getCell(cellElem);
+        cellObject.textColor=textColor;
+    })
+
+    $("input[halign='left']").on("click",function(){
+        $(this).toggleClass("isOn");
+        $("input[halign='center']").removeClass("isOn");
+        $("input[halign='right']").removeClass("isOn");
+        let leftAlign = $(this).hasClass("isOn");
+        console.log(leftAlign);
+        $("#grid .cell.selected").css("text-align",leftAlign?"left":"left");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getCell(cellElem);
+        if(leftAlign){
+            cellObject.halign="left";
+        }else{
+            cellObject.halign="left";
+        }
+        // let cellElem=$('#grid .cell.selected');
+        // cellElem.css("text-align",halign);
+        // let cellObject = getCell(cellElem);
+        // cellObject.halign=halign;
+    })
+
+    $("input[halign='center']").on("click",function(){
+        $(this).toggleClass("isOn");
+        $("input[halign='left']").removeClass("isOn");
+        $("input[halign='right']").removeClass("isOn");
+        let leftAlign = $(this).hasClass("isOn");
+        $("#grid .cell.selected").css("text-align",leftAlign?"center":"left");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getCell(cellElem);
+        if(leftAlign){
+            cellObject.halign="center";
+        }else{
+            cellObject.halign="left";
+        }
+        // let halign = $(this).val();
+        // let cellElem=$('#grid .cell.selected');
+        // cellElem.css("text-align",halign);
+        // let cellObject = getCell(cellElem);
+        // cellObject.halign=halign;
+    })
+
+    $("input[halign='right']").on("click",function(){
+        $(this).toggleClass("isOn");
+        $("input[halign='left']").removeClass("isOn");
+        $("input[halign='center']").removeClass("isOn");
+        let leftAlign = $(this).hasClass("isOn");
+        $("#grid .cell.selected").css("text-align",leftAlign?"right":"left");
+        let cellElem = $("#grid .cell.selected");
+        let cellObject = getCell(cellElem);
+        if(leftAlign){
+            cellObject.halign="right";
+        }else{
+            cellObject.halign="left";
+        }
+        // let halign = $(this).val();
+        // let cellElem=$('#grid .cell.selected');
+        // cellElem.css("text-align",halign);
+        // let cellObject = getCell(cellElem);
+        // cellObject.halign=halign;
     })
 
     $("#New").on("click",function(){
@@ -25,9 +215,25 @@ $(document).ready(function(){
                     value:"",
                     formula:"",
                     downstream:[],
-                    upstream:[]
+                    upstream:[],
+                    bold:false,
+                    underline:false,
+                    italic:false,
+                    fontFamily:"Arial",
+                    fontSize:12,
+                    bgColor:"white",
+                    textColor:"black",
+                    halign:"left"
                 }
                 $(allCols[j]).html('');
+                $(allCols[j]).css("font-weight", cell.bold ? "bolder" : "normal");
+                $(allCols[j]).css("font-style", cell.italic ? "italic" : "normal");
+                $(allCols[j]).css("text-decoration", cell.underline ? "underline" : "none");
+                $(allCols[j]).css("font-family", cell.fontFamily);
+                $(allCols[j]).css("font-size", cell.fontSize);
+                $(allCols[j]).css("color", cell.textColor);
+                $(allCols[j]).css("background-color", cell.bgColor);
+                $(allCols[j]).css("text-align", cell.halign);
                 row.push(cell);
             }
             db.push(row);
@@ -63,6 +269,14 @@ $(document).ready(function(){
             let allCols=$(allRows[i]).find(".cell");
             for(let j=0;j<allCols.length;j++){
                 $(`#grid .cell[row-id=${i}][col-id=${j}]`).html(db[i][j].value);
+                $(allCols[j]).css("font-weight", cell.bold ? "bolder" : "normal");
+                $(allCols[j]).css("font-style", cell.italic ? "italic" : "normal");
+                $(allCols[j]).css("text-decoration", cell.underline ? "underline" : "none");
+                $(allCols[j]).css("font-family", cell.fontFamily);
+                $(allCols[j]).css("font-size", cell.fontSize);
+                $(allCols[j]).css("color", cell.textColor);
+                $(allCols[j]).css("background-color", cell.bgColor);
+                $(allCols[j]).css("text-align", cell.halign);
             }
         }
     })
@@ -212,6 +426,7 @@ $(document).ready(function(){
 
 
     function init(){
+        $("#File").trigger("click");
         $("#New").trigger("click");
         // db=[];
         // let allRows=$("#grid").find(".row");

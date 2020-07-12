@@ -8,12 +8,52 @@
 </head>
 <body>
         <!-- .menu+.menu-option+(.formulaBar>(input[type="text"])*2).cell-container+.sheets -->
-        <div class="menu">Menu</div>
-        <div class="menu-option">
-            <div id="New">New</div>
-            <div id="Open">Open</div>
-            <div id="Save">Save</div>
+        <div class="menu-container">
+            <div class="menu" id="File">File</div>
+            <div class="menu" id="Home">Home</div>
         </div>
+        <div class="menu-option-container">
+            <div class="menu-options" id="File-menu-options">
+                <div id="New">New</div>
+                <div id="Open">Open</div>
+                <div id="Save">Save</div>
+            </div>
+            <div class="menu-options" id="Home-menu-options">
+                <div class="menu-group">
+                    <div class="menu-row">
+                        <select name="" id="font-family">
+                            <option value="Arial">Arial</option>
+                            <option value="Cambria">Cambria</option>
+                            <option value="Georgia">Georgia</option>
+                            <option value="monospace">MonoSpace</option>
+                            <option value="sans-serif">sans-serif</option>
+                        </select>
+                        <select name="" id="font-size">
+                            <option value="10">10</option>
+                            <option value="12">12</option>
+                            <option value="14">14</option>
+                            <option value="16">16</option>
+                            <option value="18">18</option>
+                            <option value="22">22</option>
+                        </select>
+                    </div>
+                    <div class="menu-row">
+                        <input type="button" id="bold" value="B">
+                        <input type="button" id="underline" value="U">
+                        <input type="button" id="italic" value="I">
+                        <input type="color" id="bg-color" value="rebeccapurple">
+                        <input type="color" id="text-color" value="gray">
+                    </div>
+                </div>
+                <div class="menu-group">
+                    <input type="button" value="L" halign="left">
+                    <input type="button" value="C" halign="center">
+                    <input type="button" value="R" halign="right">
+                </div>
+            </div>
+            
+        </div>
+        
         <div class="formulaBar">Formula bar
             <input type="text" id="text-input" class="text-container ib" readonly="true">
             <input type="text" id="formula-input" class="formula-container">
