@@ -47,11 +47,15 @@ body,html{
     width: calc(100vw - 15rem);
     background: gray;
     height: 100%;
+    display:flex;
     text-align: center;
+    align-items: center;
+    padding-left: 10px;
+    overflow: auto;
 }
 .main-container{
     height: calc(100vh - 87px);
-    background:rebeccapurple;
+    /* background:rebeccapurple; */
     display:flex;
 }
 
@@ -78,4 +82,34 @@ body,html{
 .terminal{
     height:28%;
     border:1px solid;
+}
+
+/* scroll bar height and width */
+::-webkit-scrollbar{
+    height:5px;
+    width:5px;
+}
+/* scrollbar handle */
+::-webkit-scrollbar-thumb{
+    background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-track{
+    border: 1px solid #141414;
+    box-shadow: inset 0 0 2.5px 2px rgba(0, 0, 0, 0.363);
+}
+
+#editor{
+    height: 100%;
+}
+
+.tab{
+    display: flex;
+    background-color: slategray;
+    height: 73%;
+    align-items: center;
+    margin-right: 3px;
+}
+.fa-times{
+    align-self: start;
 }
