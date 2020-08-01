@@ -1,7 +1,11 @@
 const $ = require("jquery");
 const path = require("path");
 const fs = require("fs");
-// const { delete } = require("request");
+const os = require('os');
+const pty = require('node-pty');
+const Terminal = require('xterm').Terminal;
+const {FitAddon} = require('xterm-addon-fit');
+
 require("jstree");
 let myMonaco,editor;
 let tabArr={};
@@ -10,7 +14,8 @@ $(document).ready(async function(){
 
     editor = await createEditor();
     console.log(editor);
-        
+    createTerminal();
+
 
     let parentPath = process.cwd();
     let name = path.basename(parentPath);
@@ -117,6 +122,35 @@ $(document).ready(async function(){
         })
 
         // console.log("Abhi nahi aaye");
+    }
+
+    function createTerminal(){
+        // Initialize node-pty with an appropriate shell
+        const shell = process.env[os.platform() === 'win32' ? 'COMSPEC' : 'SHELL'];
+        const ptyProcess = pty.spawn(shell, [], {
+            name: 'xterm-color',
+            cols: 80,
+            rows: 30,
+            cwd: process.cwd(),
+            env: process.env
+        });
+
+        // Initialize xterm.js and attach it to the DOM
+        const xterm = new Terminal();
+        const fitAddon = new FitAddon();
+        // console.log(fitAddon);
+        xterm.loadAddon(fitAddon);
+        xterm.open(document.getElementById('terminal'));
+        // xterm.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
+        // Make the terminal's size and geometry fit the size of #terminal-container
+        fitAddon.fit();
+
+
+        // Setup communication between xterm.js and node-pty
+        xterm.onData(data => ptyProcess.write(data));
+        ptyProcess.on('data', function (data) {
+            xterm.write(data);
+        });        
     }
 
 })
