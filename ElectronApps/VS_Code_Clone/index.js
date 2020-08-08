@@ -32,7 +32,10 @@ $(document).ready(async function(){
     $("#tree").jstree({
         "core":{
             "check_callback":true,
-            "data":data
+            "data":data,
+            "themes": {
+                "icons": false
+            }
         }
     }).on("open_node.jstree",
     function(e,data){
@@ -63,6 +66,9 @@ $(document).ready(async function(){
             createTab(fPath);
         }
     })
+
+
+
     function createData(parentPath){
         let isDir = fs.lstatSync(parentPath).isDirectory();
         if(!isDir){
@@ -82,7 +88,15 @@ $(document).ready(async function(){
         return cdata;
     }
 
-
+    let isDark = false;
+    $("#theme").on("click",function(){
+        if(isDark){
+            myMonaco.editor.setTheme("vs");
+        }else{
+            myMonaco.editor.setTheme("vs-dark");
+        }
+        isDark = !isDark;
+    })
     
 
     function createEditor(){
@@ -114,7 +128,8 @@ $(document).ready(async function(){
                         '\tconsole.log("Hello world!");',
                         '}'
                     ].join('\n'),
-                    language: 'javascript'
+                    language: 'javascript',
+                    automaticLayout: true
                 });
                 myMonaco = monaco;
                 resolve(editor);
@@ -140,7 +155,12 @@ $(document).ready(async function(){
         const fitAddon = new FitAddon();
         // console.log(fitAddon);
         xterm.loadAddon(fitAddon);
+        xterm.setOption('theme', {
+            background: "rebeccapurple",
+    
+        });
         xterm.open(document.getElementById('terminal'));
+
         // xterm.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
         // Make the terminal's size and geometry fit the size of #terminal-container
         fitAddon.fit();

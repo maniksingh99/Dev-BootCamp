@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
+    <link rel="Stylesheet" href="./node_modules/xterm/css/xterm.css">
     <link rel="stylesheet" href="style.css">
     <!-- xterm css  -->
-    <link rel="Stylesheet" href="./node_modules/xterm/css/xterm.css">
+   
     <!-- <script src="node_modules/xterm/lib/xterm.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
+    
     <title>Document</title>
 </head>
 <body>
@@ -18,6 +20,7 @@
             <div class="btn-container">
                 <button class="btn new" id="New">New</button>
                 <button class="btn save" id="Save">Save</button>
+                <button class = "btn" id = "theme">Switch</button>
             </div>
             <div id="tabs-row" class="tabs-container">
                 
@@ -31,7 +34,9 @@
                 <div id="text-editor" class="textbox">
                     <div id="editor"></div>
                 </div>
-                <div id="terminal" class="terminal" ></div>
+                <div id="terminal-container" class="terminal-container" >
+                    <div id="terminal" class="terminal"></div>
+                </div>
             </div>
         </div>
     </div>

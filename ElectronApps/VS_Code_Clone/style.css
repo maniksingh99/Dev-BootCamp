@@ -56,18 +56,19 @@ body,html{
 .main-container{
     height: calc(100vh - 87px);
     /* background:rebeccapurple; */
+    justify-content: space-between;
     display:flex;
 }
 
 .file-explorer{
     height:100%;
-    background:black;
-    width:30%;
+    background:inherit;
+    width:25%;
     overflow-y: auto;
 }
 
 .content{
-    width:70%;
+    width:72%;
     height:100%;
     display:flex;
     flex-direction:column;
@@ -77,11 +78,24 @@ body,html{
 .textbox{
     height:69%;
     border:1px solid;
+    /* overflow: auto; */
+    box-shadow: 0 1rem 3rem rgb(49, 47, 47);
+}
+
+.terminal-container{
+    height:28%;
+    width: 100%;
+    /* overflow: auto; */
+    border:1px solid;
+    box-shadow: 0 1rem 3rem rgb(140, 94, 185);
+    position: relative;
+    /* z-index:3; */
 }
 
 .terminal{
-    height:28%;
-    border:1px solid;
+    height: 100%;
+    width:100%;
+    overflow: auto;
 }
 
 /* scroll bar height and width */
@@ -113,3 +127,16 @@ body,html{
 .fa-times{
     align-self: start;
 }
+
+.jstree-anchor.jstree-clicked{
+    background: inherit;
+}
+
+.jstree-default .jstree-hovered {
+    background: inherit;
+}
+
+
+/* .xterm .xterm-viewport{
+    overflow-y:visible;
+}  */
