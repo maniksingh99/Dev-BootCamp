@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href = "style.css">
+</head>
+<body>
+    <div class="tool-panel">
+        <div class="hamburger-icon"></div>
+        <div class="tool-bar">
+            <div class="tool">
+                <img src="./NewIcons/Black_Pencil.svg" alt="" id="pencil" class="tool-img">
+                <div class="tool-options"></div>
+            </div>
+            <div class="tool">
+                <img src="./NewIcons/Eraser.svg" alt="" id="eraser" class="tool-img">
+                <div class="tool-options"></div>
+            </div>
+        </div>
+    </div>
+    <div class="drawing-area">
+        <canvas class="board"></canvas>
+    </div>
+    <script>
+        let board = document.querySelector(".board");
+        board.height = window.innerHeight;
+        board.width = window.innerWidth;
+        window.addEventListener("resize",function(){
+            board.height = window.innerHeight;
+            board.width = window.innerWidth;
+        })
+        let ctx = board.getContext("2d");
+        ctx.fillStyle = "red";
+        
+        // ctx.fillRect(50,50,50,50);
+    </script>
+    <script src = "tool.js"></script>
+    <script src = "script.js"></script>
+</body>
+</html>
