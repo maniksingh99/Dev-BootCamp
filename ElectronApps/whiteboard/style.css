@@ -30,11 +30,108 @@ body,html{
 }
 
 .tool-img{
-    height: 85%;
-    width:10%;
+    height: 83%;
+    width:100%;
 }
 
 .tool{
-
+    position: relative;
 }
+
+.tool-options{
+    left:-29px;
+    top:63px;
+    position: absolute;
+    height: 6rem;
+    width: 8rem;
+    background: yellow;
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
+.slider{
+    height: 34%;
+    /* to align a item in center we have written the below three statements */
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+input[type="range"]{
+    width: 70%;
+}
+
+.colors{
+    height:66%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.color{
+    height: 61%;
+    width: 30%;
+    border-radius: 50%;
+}
+
+.red{
+    background: red;
+}
+
+.green{
+    background: green;
+}
+
+.blue{
+    background: blue;
+}
+
+/* stickyPad styling */
+
+.stickyPad{
+    height: 14rem;
+    width: 16rem;
+    background: yellow;
+    position: absolute;
+    top:34vh;
+    left:20vw;
+}
+
+.navBar{
+    height:16%;
+    background: sandybrown;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 1rem;
+}
+
+.container{
+    height:calc(14rem - 16%);
+}
+
+textarea{
+    height: 100%;
+    width: 100%;
+}
+
+.close{
+    height: 60%;
+    width: 9%;
+    border-radius: 50%;
+    background: red;
+    margin-right: 0.4rem;
+}
+
+.minimize{
+    height: 60%;
+    width: 9%;
+    border-radius: 50%;
+    background: green;
+    /* margin-right: 0.4rem; */
+}
+
 

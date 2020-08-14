@@ -12,13 +12,47 @@
         <div class="tool-bar">
             <div class="tool">
                 <img src="./NewIcons/Black_Pencil.svg" alt="" id="pencil" class="tool-img">
-                <div class="tool-options"></div>
+                <div class="tool-options" id="pencil-options">
+                    <div class="slider">
+                        <!-- <input type="range" value='5' min='1' max='50' onChange='setWidth(value)'></div> -->
+                        <input type="range" value='5' min='1' max='50'>
+                    </div>
+                    <div class="colors">
+                        <div class="color red" onclick="handleColor('red')"></div>
+                        <div class="color green" onclick="handleColor('green')"></div>
+                        <div class="color blue" onclick="handleColor('blue')"></div>
+                    </div>
+                </div>
             </div>
+
             <div class="tool">
                 <img src="./NewIcons/Eraser.svg" alt="" id="eraser" class="tool-img">
-                <div class="tool-options"></div>
+                <div class="tool-options" id="eraser-options">
+                    <div class="slider">
+                        <!-- <input type="range" value='5' min='1' max='50' onChange='setWidth(value)'></div> -->
+                        <input type="range" value='5' min='1' max='50'>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool">
+                <img src="./NewIcons/Undo.svg" alt="" id="undo" class="tool-img">
+                <!-- <div class="tool-options"></div> -->
+            </div>
+            <div class="tool">
+                <img src="./NewIcons/Redo.svg" alt="" id="redo" class="tool-img">
+                <!-- <div class="tool-options"></div> -->
+            </div>
+
+            <div class="tool">
+                <img src="./NewIcons/StickyNote.svg" alt="" id="sticky" class="tool-img">
+            </div>
+
+            <div class="tool">
+                <input type="file" id="upload" accept="image/*" class="tool-img">
             </div>
         </div>
+
     </div>
     <div class="drawing-area">
         <canvas class="board"></canvas>
@@ -30,6 +64,8 @@
         window.addEventListener("resize",function(){
             board.height = window.innerHeight;
             board.width = window.innerWidth;
+            //drawing get cleared to avoid call this function
+            redraw();
         })
         let ctx = board.getContext("2d");
         ctx.fillStyle = "red";
@@ -38,5 +74,7 @@
     </script>
     <script src = "tool.js"></script>
     <script src = "script.js"></script>
+    <script src= "sticky.js"></script>
+    <script src = "img.js"></script>
 </body>
 </html>
