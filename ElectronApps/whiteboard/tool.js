@@ -1,3 +1,5 @@
+const socket = io.connect('https://whiteboardserver.herokuapp.com/');
+console.log(socket);
 let pencil = document.querySelector("#pencil");
 let eraser = document.querySelector("#eraser");
 let undo = document.querySelector("#undo");
@@ -68,6 +70,7 @@ sticky.addEventListener("click",function(){
 
 function handleColor(color){
     ctx.strokeStyle = color;
+    socket.emit("color",color);
 }
 
 sliders.forEach(function(slider){

@@ -49,7 +49,13 @@
             </div>
 
             <div class="tool">
-                <input type="file" id="upload" accept="image/*" class="tool-img">
+                <label for="upload">
+                    <img src="./NewIcons/Photo.svg" alt=""  class="tool-img">
+                    <input type="file"  accept="image/*" id="upload" class="tool-img" style="display: none;">
+                </label>
+            </div>
+            <div class="tool">
+                <img src="./NewIcons/Download.svg" alt="" id="download" class="tool-img">
             </div>
         </div>
 
@@ -72,9 +78,12 @@
         
         // ctx.fillRect(50,50,50,50);
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.4/socket.io.js"></script>
+    <script src ="./utility/util.js"></script>
     <script src = "tool.js"></script>
     <script src = "script.js"></script>
     <script src= "sticky.js"></script>
     <script src = "img.js"></script>
+    <script src = "reciever.js"></script>
 </body>
 </html>

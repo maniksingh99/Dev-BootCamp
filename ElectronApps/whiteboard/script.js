@@ -18,6 +18,7 @@ board.addEventListener("mousedown",function(e){
     }
     // console.log(mdp);
     points.push(mdp);
+    socket.emit("md",mdp);
 })
 
 board.addEventListener("mousemove",function(e){
@@ -36,6 +37,7 @@ board.addEventListener("mousemove",function(e){
             width:ctx.lineWidth
         }
         points.push(mmp);
+        socket.emit("mm",mmp);
     }
    
 })
