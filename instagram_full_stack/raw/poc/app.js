@@ -5,7 +5,27 @@ const path = require("path");
 const { v4: uuidv4 } = require('uuid');
 const app = express();
 
+app.use(function before(req,res,next){
+    console.log("I will run before express.json");
+    console.log(req.body);
+    next();
+})
+
 app.use(express.json());
+
+app.post(function checkbody(req,res,next){
+    console.log("I will run after express.json");
+    let keysArray = Object.keys(req.body);
+    if(keysArray.length <= 0){
+        res.status.json({
+            status : "Failure",
+            message : "Body Could not be empty"
+        })
+    }
+    else{
+        next();
+    }
+})
 
 app.post("/user",function(req,res){
     let user = req.body;
@@ -80,6 +100,13 @@ app.patch("/user/:uid",(req,res)=>{
     res.status(201).json({
         status:"Updated successfully",
         user:user
+    })
+})
+
+app.use("*", (req, res) => {
+    res.status(404).json({
+        "status": "failure",
+        "message": "resource not found"
     })
 })
 
