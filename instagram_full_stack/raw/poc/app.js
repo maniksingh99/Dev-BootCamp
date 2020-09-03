@@ -49,7 +49,8 @@ app.delete("/user/:uid",(req,res)=>{
     fs.writeFileSync(path.join(__dirname,"./db/user.json"),JSON.stringify(users));
     res.status(201).json({
         status:"Deleted Successfully",
-        user:users
+        users:users,
+        length:users.length
     })
 })
 
