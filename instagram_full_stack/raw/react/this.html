@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // "use strict";
+        let obj = { 
+            name:"Manik",
+            sayHi:function(){
+                console.log("Line no 13");
+                console.log(this);
+                let inner = function(){
+                    console.log("Line no 16");
+                    console.log(this);
+                }
+                inner();
+            }
+        }
+        obj.sayHi();
+        function fun(){
+            console.log(this);
+        }
+        fun();
+    </script>
+</body>
+</html>

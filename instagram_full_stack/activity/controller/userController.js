@@ -40,6 +40,14 @@ const getUser = async (req,res)=>{
     }
 }
 
+//to get all users
+const getAllUser = (req,res)=>{
+    res.status(201).json({
+        status:"success"
+        
+    })
+}
+
 //to delete a particular user
 const deleteUser = async(req,res)=>{
     let cUid = req.params.uid;

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- react logic -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <!-- platform specific code  -->
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <!-- convert JSX to JS -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <!-- APP -->
+    <div id = "root"></div>
+        <script type = "text/babel">
+            class Counter extends React.Component{
+                constructor(){
+                    super();
+                    this.state = {
+                        count:0
+                    }
+                }
+                increment = ()=>{
+                    this.setState({count:this.state.count+1});
+                }
+                decrement = ()=>{
+                    this.setState({count:this.state.count-1});
+                }
+                render(){
+                    return(
+                        <React.Fragment>
+                            <p class="ml ml-4 lead">{this.state.count}</p>
+                            <button class="btn btn-primary" onClick={this.increment}>+</button>
+                            <button class="btn btn-danger" onClick={this.decrement}>-</button>
+                        </React.Fragment>
+                    )
+                }
+            }
+        function CounterParent() {
+            return (
+                <React.Fragment>
+                    <Counter></Counter>
+                    <Counter></Counter>
+                    <Counter></Counter>
+                    <Counter></Counter>
+                </React.Fragment>
+            )
+        }
+            ReactDOM.render(<CounterParent/>,document.getElementById("root"));
+        </script>
+</body>
+</html>
