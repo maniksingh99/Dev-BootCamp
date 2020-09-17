@@ -1,5 +1,5 @@
 const userModel = require("../model/userModel");
-
+const userFollowerModel = require("../model/user_followerModel");
 
 
 
@@ -105,7 +105,68 @@ const checkBody = (req,res,next)=>{
 
 
 //**************************** request to follow **********************
+//send request
+const createRequest = async(req,res)=>{
+    try{
+        let uid = req.body.user_id;
+        let follower_id = req.body.follower_id;
+        await userFollowerModel.addPendingFollower(req.body);
+        let {is_public} = await userModel.getById(uid);
+        if(is_public == true){
+            await userFollowerModel.acceptRequest(uid,follower_id);
+            return res.status(201).json({
+                status:"success",
+                "message":"request accepted"
+            })
+        }
+        res.status(201).json({
+            status:"pending",
+            "message":"request is send user will accept it"
+        })
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({
+            status:"error",
+            "message":err.message
+        })
+    }
+}
 
+//get all followers
+const getAllFollowers=async(req,res)=>{
+    try{
+        let result = await userFollowerModel.getAllFollowers(req.params.id);
+        res.status(201).json({
+            status:"success",
+            "message":result
+        })
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({
+            status:"error",
+            "message":err.message
+        })
+    }
+}
+
+const getCountOfAllFollowers = async(req,res)=>{
+    try{
+        let result = await userFollowerModel.getCountFollowers(req.params.id);
+        res.status(201).json({
+            status:"success",
+            "message":result
+        })
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({
+            status:"error",
+            "message":err.message
+        })
+    }
+}
 
 
 module.exports.createUser = createUser;
@@ -113,3 +174,6 @@ module.exports.updateUser = updateUser;
 module.exports.deleteUser = deleteUser;
 module.exports.getUser = getUser;
 module.exports.checkBody = checkBody;
+module.exports.createRequest = createRequest;
+module.exports.getAllFollowers = getAllFollowers;
+module.exports.getCountOfAllFollowers = getCountOfAllFollowers;

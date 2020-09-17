@@ -7,8 +7,9 @@ const {createUser,getUser,updateUser,deleteUser,checkBody} = require("../control
 userRouter.route("/").post(checkBody,createUser);
 userRouter.route("/:uid").get(getUser).patch(checkBody,updateUser).delete(deleteUser);
 
-//user request add, delete ,get
-// userRouter.route("/request").post(createRequest);
-// userRouter.route("/request/:id").get(getAllFollowers);
+//user request add, delete ,get,get count of followers
+userRouter.route("/request").post(createRequest);
+userRouter.route("/request/:id").get(getAllFollowers);
+userRouter.route("/request/count/:id").get(getCountOfAllFollowers);
 
 module.exports = userRouter;
